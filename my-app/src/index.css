@@ -1,10 +1,11 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
+  background-image: url("bg.png");
   margin: 20px;
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 20%;
 }
 
 .board-row:after {
@@ -18,18 +19,19 @@ ol, ul {
 }
 
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: blue;
+  border: 10px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 70px;
   font-weight: bold;
+  color: white;
   line-height: 34px;
-  height: 34px;
+  height: 113px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 113px;
 }
 
 .square:focus {
