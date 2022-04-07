@@ -22,23 +22,17 @@ class Board extends React.Component {
   }
 
   render() {
+    var items = [[], [], []]
+    for (var i = 0; i < 3; i++) {
+      for (var j = 0; j < 3; j++) {
+        items[i].push(this.renderSquare(i*3+j));
+      }
+    }
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {items.map((i) => (
+          <div>{i}</div>
+        ))}
       </div>
     );
   }
@@ -48,13 +42,10 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: [
-        {
-          squares: Array(9).fill(null),
-        }
-      ],
+      history: [{squares: Array(9).fill(null),}],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      number: 0
     };
   }
 
@@ -62,6 +53,7 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+    const number = i;
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -74,7 +66,7 @@ class Game extends React.Component {
       ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-      number: history.length
+      number: number
     });
   }
 
@@ -92,7 +84,7 @@ class Game extends React.Component {
     const x = (this.state.number % 3 + 1);
     const y = (Math.floor(this.state.number/3) + 1);
 
-    const moves = history.map((step, move, xIsNext, number) => {
+    const moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move + " (" + x + ", " + y + ")":
         'Go to game start';
